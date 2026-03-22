@@ -209,8 +209,8 @@ public:
 
 //  Решает систему Ax = b методом QR-разложения (A = QR).
 //  Алгоритм: модифицированный метод Грама–Шмидта (численно устойчивее классического).
-//  Решение: QRx = b  ->  Rx = Q^T * b  ->  back-substitution.
-//  Q^T для вещественных типов, Q* (эрмитово сопряжение) для Complex.
+//  Решение: QRx = b  ->  Rx = Q^H * b  ->  back-substitution.
+//  Q^H для вещественных типов, Q* (эрмитово сопряжение) для Complex.
 
 //  Жизненный цикл кэша — идентичен LUSolver.
 template <class T>
@@ -297,8 +297,8 @@ class QRSolver {
         }
     }
 
-    // умножение Q^T * b
-    // c[j] = (Q^T * b)[j] = sum_i conj(Q[i][j]) * b[i]
+    // умножение Q^H * b
+    // c[j] = (Q^H * b)[j] = sum_i conj(Q[i][j]) * b[i]
     MutableArraySequence<T>* mulQdaggerB(const Sequence<T>& b) const {
         int n = A_->GetSize();
         auto* c = new MutableArraySequence<T>();
@@ -346,14 +346,14 @@ public:
     }
 
     // решение Ax = b
-    // Первый вызов: O(n^3) разложение + O(n^2) умножение Q^T * b + O(n^2) подстановка.
+    // Первый вызов: O(n^3) разложение + O(n^2) умножение Q^H * b + O(n^2) подстановка.
     // Повторные вызовы с той же A: только O(n^2).
     MutableArraySequence<T>* Solve(const Sequence<T>& b) const {
         int n = A_->GetSize();
         if (b.GetLength() != n)
             throw RHSLengthMismatch(b.GetLength(), n);
         ensureDecomposed();
-        auto* c = mulQdaggerB(b);   // c = Q†b
+        auto* c = mulQdaggerB(b);   // c = Q^H * b
         auto* x = backSub(c);       // Rx = c
         delete c;
         return x;
