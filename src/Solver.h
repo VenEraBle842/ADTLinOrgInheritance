@@ -101,7 +101,7 @@ class LUSolver {
             // Вычисляем множители и обновляем подматрицу Шура
             for (int i = k + 1; i < n; ++i) {
                 T factor = W->Get(i, k) / W->Get(k, k);
-                W->Set(i, k, factor);   // W[i][k] ← L[i][k] (ниже диагонали)
+                W->Set(i, k, factor);   // W[i][k] <- L[i][k] (ниже диагонали)
                 for (int j = k + 1; j < n; ++j)
                     W->Set(i, j, W->Get(i, j) - factor * W->Get(k, j));
             }
