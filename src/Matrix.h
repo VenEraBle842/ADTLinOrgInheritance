@@ -43,15 +43,15 @@ public:
     SquareMatrix<T>* AddCol  (int i, int j, const T& scalar); // col[i] += scalar*col[j]
 
     // операторы
-    bool operator==(const SquareMatrix<T>& o) const {
-        if (GetSize() != o.GetSize()) return false;
+    bool operator==(const SquareMatrix<T>& other) const {
+        if (GetSize() != other.GetSize()) return false;
         int n = GetSize();
         for (int i = 0; i < n; ++i)
             for (int j = 0; j < n; ++j)
-                if (Get(i, j) != o.Get(i, j)) return false;
+                if (Get(i, j) != other.Get(i, j)) return false;
         return true;
     }
-    bool operator!=(const SquareMatrix<T>& o) const { return !(*this == o); }
+    bool operator!=(const SquareMatrix<T>& other) const { return !(*this == other); }
 };
 
 // вывод в поток
@@ -88,14 +88,14 @@ public:
       data_(new DynamicArray<T>(n * n))
     {}
 
-    ArraySquareMatrix(const ArraySquareMatrix<T>& o)
-        : size_(o.size_), data_(new DynamicArray<T>(*o.data_)) {}
+    ArraySquareMatrix(const ArraySquareMatrix<T>& other)
+        : size_(other.size_), data_(new DynamicArray<T>(*other.data_)) {}
 
-    ArraySquareMatrix& operator=(const ArraySquareMatrix<T>& o) {
-        if (this == &o) return *this;
+    ArraySquareMatrix& operator=(const ArraySquareMatrix<T>& other) {
+        if (this == &other) return *this;
         delete data_;
-        size_ = o.size_;
-        data_ = new DynamicArray<T>(*o.data_);
+        size_ = other.size_;
+        data_ = new DynamicArray<T>(*other.data_);
         return *this;
     }
 
@@ -211,7 +211,8 @@ SquareMatrix<T>* SquareMatrix<T>::AddRow(int i, int j, const T& scalar) {
     SquareMatrix<T>* inst = Instance();
     // Снимаем снимок строки j до мутации — защита от случая i == j
     DynamicArray<T> snap(n);
-    for (int k = 0; k < n; ++k) snap.Set(k, inst->Get(j, k));
+    for (int k = 0; k < n; ++k)
+        snap.Set(k, inst->Get(j, k));
     for (int k = 0; k < n; ++k)
         inst->Set(i, k, inst->Get(i, k) + snap.Get(k) * scalar);
     return inst;
@@ -251,7 +252,8 @@ SquareMatrix<T>* SquareMatrix<T>::AddCol(int i, int j, const T& scalar) {
     SquareMatrix<T>* inst = Instance();
     // Снимок столбца j до мутации — защита от случая i == j
     DynamicArray<T> snap(n);
-    for (int k = 0; k < n; ++k) snap.Set(k, inst->Get(k, j));
+    for (int k = 0; k < n; ++k)
+        snap.Set(k, inst->Get(k, j));
     for (int k = 0; k < n; ++k)
         inst->Set(k, i, inst->Get(k, i) + snap.Get(k) * scalar);
     return inst;
@@ -264,16 +266,16 @@ public:
     explicit MutableSquareMatrix(int n)
         : ArraySquareMatrix<T>(n) {}
 
-    explicit MutableSquareMatrix(const SquareMatrix<T>& o)
-    : ArraySquareMatrix<T>(o.GetSize()) {
-        int n = o.GetSize();
+    explicit MutableSquareMatrix(const SquareMatrix<T>& other)
+    : ArraySquareMatrix<T>(other.GetSize()) {
+        int n = other.GetSize();
         for (int i = 0; i < n; ++i)
             for (int j = 0; j < n; ++j)
-                this->Set(i, j, o.Get(i, j));
+                this->Set(i, j, other.Get(i, j));
     }
 
-    MutableSquareMatrix(const MutableSquareMatrix<T>& o)
-        : ArraySquareMatrix<T>(o) {}
+    MutableSquareMatrix(const MutableSquareMatrix<T>& other)
+        : ArraySquareMatrix<T>(other) {}
 
     SquareMatrix<T>* Clone()            const override {
         return new MutableSquareMatrix<T>(*this);
@@ -293,16 +295,16 @@ public:
     explicit ImmutableSquareMatrix(int n)
         : ArraySquareMatrix<T>(n) {}
 
-    explicit ImmutableSquareMatrix(const SquareMatrix<T>& o)
-    : ArraySquareMatrix<T>(o.GetSize()) {
-        int n = o.GetSize();
+    explicit ImmutableSquareMatrix(const SquareMatrix<T>& other)
+    : ArraySquareMatrix<T>(other.GetSize()) {
+        int n = other.GetSize();
         for (int i = 0; i < n; ++i)
             for (int j = 0; j < n; ++j)
-                this->Set(i, j, o.Get(i, j));
+                this->Set(i, j, other.Get(i, j));
     }
 
-    ImmutableSquareMatrix(const ImmutableSquareMatrix<T>& o)
-        : ArraySquareMatrix<T>(o) {}
+    ImmutableSquareMatrix(const ImmutableSquareMatrix<T>& other)
+        : ArraySquareMatrix<T>(other) {}
 
     SquareMatrix<T>* Clone()            const override {
         return new ImmutableSquareMatrix<T>(*this);

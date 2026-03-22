@@ -13,33 +13,33 @@ struct Complex {
     Complex(double r, double i)       : re(r),   im(i)   {}
 
     // арифметика
-    Complex operator+(const Complex& o) const { return {re + o.re, im + o.im}; }
-    Complex operator-(const Complex& o) const { return {re - o.re, im - o.im}; }
+    Complex operator+(const Complex& other) const { return {re + other.re, im + other.im}; }
+    Complex operator-(const Complex& other) const { return {re - other.re, im - other.im}; }
 
-    Complex operator*(const Complex& o) const {
-        return {re*o.re - im*o.im,
-                re*o.im + im*o.re};
+    Complex operator*(const Complex& other) const {
+        return {re*other.re - im*other.im,
+                re*other.im + im*other.re};
     }
 
-    Complex operator/(const Complex& o) const {
-        double d = o.re*o.re + o.im*o.im;
+    Complex operator/(const Complex& other) const {
+        double d = other.re*other.re + other.im*other.im;
         if (d == 0.0)
             throw std::runtime_error("Complex::operator/: division by zero");
-        return {(re*o.re + im*o.im) / d,
-                (im*o.re - re*o.im) / d};
+        return {(re*other.re + im*other.im) / d,
+                (im*other.re - re*other.im) / d};
     }
 
     Complex operator-() const { return {-re, -im}; }
 
     // составное присваивание
-    Complex& operator+=(const Complex& o) { re += o.re; im += o.im; return *this; }
-    Complex& operator-=(const Complex& o) { re -= o.re; im -= o.im; return *this; }
-    Complex& operator*=(const Complex& o) { *this = *this * o; return *this; }
-    Complex& operator/=(const Complex& o) { *this = *this / o; return *this; }
+    Complex& operator+=(const Complex& other) { re += other.re; im += other.im; return *this; }
+    Complex& operator-=(const Complex& other) { re -= other.re; im -= other.im; return *this; }
+    Complex& operator*=(const Complex& other) { *this = *this * other; return *this; }
+    Complex& operator/=(const Complex& other) { *this = *this / other; return *this; }
 
     // сравнение
-    bool operator==(const Complex& o) const { return re == o.re && im == o.im; }
-    bool operator!=(const Complex& o) const { return !(*this == o); }
+    bool operator==(const Complex& other) const { return re == other.re && im == other.im; }
+    bool operator!=(const Complex& other) const { return !(*this == other); }
 
     // метрика
     double abs()    const { return std::sqrt(re*re + im*im); }

@@ -116,11 +116,11 @@ class LUSolver {
                     L_->Set(i, j, W->Get(i, j));     // нижний треугольник
                     U_->Set(i, j, scalarZero<T>());
                 } else if (i == j) {
-                    L_->Set(i, j, scalarOne<T>());    // диагональ L = 1 (Дулиттл)
+                    L_->Set(i, j, scalarOne<T>());        // диагональ L = 1 (Дулиттл)
                     U_->Set(i, j, W->Get(i, j));
                 } else {
                     L_->Set(i, j, scalarZero<T>());
-                    U_->Set(i, j, W->Get(i, j));      // верхний треугольник
+                    U_->Set(i, j, W->Get(i, j));     // верхний треугольник
                 }
             }
         }
@@ -152,7 +152,8 @@ class LUSolver {
     MutableArraySequence<T>* backSub(const MutableArraySequence<T>* y) const {
         int n = A_->GetSize();
         auto* x = new MutableArraySequence<T>();
-        for (int i = 0; i < n; ++i) x->Append(scalarZero<T>());
+        for (int i = 0; i < n; ++i)
+            x->Append(scalarZero<T>());
         for (int i = n - 1; i >= 0; --i) {
             T val = y->Get(i);
             for (int j = i + 1; j < n; ++j)
@@ -316,7 +317,8 @@ class QRSolver {
     MutableArraySequence<T>* backSub(const MutableArraySequence<T>* c) const {
         int n = A_->GetSize();
         auto* x = new MutableArraySequence<T>();
-        for (int i = 0; i < n; ++i) x->Append(scalarZero<T>());
+        for (int i = 0; i < n; ++i)
+            x->Append(scalarZero<T>());
         for (int i = n - 1; i >= 0; --i) {
             T val = c->Get(i);
             for (int j = i + 1; j < n; ++j)
