@@ -15,17 +15,6 @@ install_manifest.txt
 CTestTestfile.cmake
 _deps/
 
-# Скопированные заголовки из Lab.2
-src/DynamicArray.h
-src/ArraySequence.h
-src/LinkedList.h
-src/ListSequence.h
-src/Sequence.h
-src/Option.h
-src/IEnumerable.h
-src/IEnumerator.h
-src/Tuple.h
-
 # Скомпилированные файлы
 *.o
 *.obj
