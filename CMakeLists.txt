@@ -20,12 +20,9 @@ FetchContent_Declare(
         sequences_lib
         GIT_REPOSITORY https://github.com/VenEraBle842/ADTLinearOrganization.git
         GIT_TAG        master
+        SOURCE_SUBDIR  "_none_"
 )
-set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
-FetchContent_GetProperties(sequences_lib)
-if(NOT sequences_lib_POPULATED)
-    FetchContent_Populate(sequences_lib)
-endif()
+FetchContent_MakeAvailable(sequences_lib)
 
 set(SEQ_SRC ${sequences_lib_SOURCE_DIR}/src)
 configure_file(${SEQ_SRC}/DynamicArray.h   ${CMAKE_SOURCE_DIR}/src/DynamicArray.h   COPYONLY)
