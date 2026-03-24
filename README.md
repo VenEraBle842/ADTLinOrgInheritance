@@ -162,7 +162,7 @@ $$
 | Разложение $PA = LU$ | $O(n^3)$ — вычисляется один раз и кэшируется |
 | Каждый последующий $Solve(b')$ | $O(n^2)$ — только прямая и обратная подстановки |
 
-https://github.com/user-attachments/assets/a426b54a-bda0-486f-a4d8-1a0eb2a5e665
+https://github.com/user-attachments/assets/8eae631a-d376-4bb9-90c0-df92de33cedd
 
 ---
 
@@ -245,7 +245,7 @@ $$
 | Обратная подстановка | $O(n^2)$ |
 | Каждый последующий $Solve(b')$ | $O(n^2)$ суммарно |
 
-https://github.com/user-attachments/assets/d4af9f58-ef8c-464c-b600-a45471384741
+https://github.com/user-attachments/assets/622ca5c8-cc60-4c7c-8b90-96062328f070
 
 ---
 
