@@ -64,7 +64,7 @@ $$
 Решается система $n \times n$:
 
 $$
-Ax = b, \quad A \in \mathbb{F}^{n \times n},\; b \in \mathbb{F}^n,\;
+Ax = b, \quad A \in \mathbb{F}^{n \times n}\; b \in \mathbb{F}^n\;
 x \in \mathbb{F}^n
 $$
 
@@ -128,7 +128,7 @@ $$
 
 $$
 l_{ik} = \frac{w_{ik}}{w_{kk}}, \qquad
-w_{ij} \leftarrow w_{ij} - l_{ik}\, w_{kj} \quad (j > k)
+w_{ij} \leftarrow w_{ij} - l_{ik}\cdot w_{kj} \quad (j > k)
 $$
 
 Множитель $l_{ik}$ записывается на место $w_{ik}$ (упакованный формат).
@@ -142,7 +142,7 @@ $$
 **Шаг 1 — Прямая подстановка** $Ly = Pb$:
 
 $$
-y_i = b_{\texttt{perm}[i]} - \sum_{j=0}^{i-1} l_{ij}\, y_j,
+y_i = b_{\texttt{perm}[i]} - \sum_{j=0}^{i-1} l_{ij}\cdot y_j,
 \quad i = 0, \ldots, n-1
 $$
 
@@ -151,7 +151,7 @@ $$
 **Шаг 2 — Обратная подстановка** $Ux = y$:
 
 $$
-x_i = \frac{1}{u_{ii}}\left(y_i - \sum_{j=i+1}^{n-1} u_{ij}\, x_j\right),
+x_i = \frac{1}{u_{ii}}\left(y_i - \sum_{j=i+1}^{n-1} u_{ij}\cdot x_j\right),
 \quad i = n-1, \ldots, 0
 $$
 
@@ -199,10 +199,10 @@ $$
 2. **Ортогонализация** всех последующих столбцов $k > j$:
 
 $$
-r_{jk} = q_j^H\, q_k, \qquad q_k \leftarrow q_k - r_{jk}\, q_j
+r_{jk} = q_j^H\cdot q_k, \qquad q_k \leftarrow q_k - r_{jk}\cdot q_j
 $$
 
-Здесь $q_j^H q_k = \sum_i \overline{q_{ij}}\, q_{ik}$ — скалярное
+Здесь $q_j^H q_k = \sum_i \overline{q_{ij}}\cdot q_{ik}$ — скалярное
 произведение с сопряжением для комплексных типов,
 реализованное через `innerProduct(a, b)` $= \bar{a} \cdot b$.
 
@@ -220,7 +220,7 @@ $$
 **Шаг 1 — Умножение на $Q^H$**:
 
 $$
-c = Q^H b, \qquad c_j = \sum_{i=0}^{n-1} \overline{q_{ij}}\, b_i,
+c = Q^H b, \qquad c_j = \sum_{i=0}^{n-1} \overline{q_{ij}}\cdot b_i,
 \quad j = 0, \ldots, n-1
 $$
 
@@ -232,7 +232,7 @@ $$
 **Шаг 2 — Обратная подстановка** $Rx = c$:
 
 $$
-x_i = \frac{1}{r_{ii}}\left(c_i - \sum_{j=i+1}^{n-1} r_{ij}\, x_j\right),
+x_i = \frac{1}{r_{ii}}\left(c_i - \sum_{j=i+1}^{n-1} r_{ij}\cdot x_j\right),
 \quad i = n-1, \ldots, 0
 $$
 
