@@ -8,6 +8,7 @@
 
 #include "src/Matrix.h"
 #include "src/Solver.h"
+#include "src/Output.h"
 
 using Clock = std::chrono::high_resolution_clock;
 using NS    = std::chrono::nanoseconds;

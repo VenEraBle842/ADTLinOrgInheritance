@@ -54,21 +54,6 @@ public:
     bool operator!=(const SquareMatrix<T>& other) const { return !(*this == other); }
 };
 
-// вывод в поток
-template <class T>
-std::ostream& operator<<(std::ostream& os, const SquareMatrix<T>& m) {
-    int n = m.GetSize();
-    for (int i = 0; i < n; ++i) {
-        os << "[ ";
-        for (int j = 0; j < n; ++j) {
-            if (j > 0) os << "  ";
-            os << m.Get(i, j);
-        }
-        os << " ]\n";
-    }
-    return os;
-}
-
 //  Плоское хранение (row-major) на DynamicArray
 template <class T>
 class ArraySquareMatrix : public SquareMatrix<T> {

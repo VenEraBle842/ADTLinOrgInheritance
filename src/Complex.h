@@ -1,6 +1,5 @@
 #pragma once
 #include <cmath>
-#include <ostream>
 #include <stdexcept>
 
 // Комплексное число
@@ -49,14 +48,6 @@ struct Complex {
     Complex conj()  const { return {re, -im}; }
 };
 
-// вывод в поток
-inline std::ostream& operator<<(std::ostream& os, const Complex& c) {
-    os << c.re;
-    if (c.im >= 0.0) os << "+";
-    os << c.im << "i";
-    return os;
-}
-
 //  Шаблонные вспомогательные функции для Solver.h
 
 //  conjOf<T>     — сопряжение (для вещественных: тождество)
@@ -67,7 +58,6 @@ inline std::ostream& operator<<(std::ostream& os, const Complex& c) {
 //  чтобы компилятор выбирал нужную версию без явного указания типа.
 
 // conjOf
-
 inline double conjOf(double x)  { return x; }
 inline float  conjOf(float  x)  { return x; }
 inline int    conjOf(int    x)  { return x; }

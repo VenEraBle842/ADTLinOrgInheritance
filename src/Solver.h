@@ -202,7 +202,7 @@ public:
     const SquareMatrix<T>&   GetL()    const { ensureDecomposed(); return *L_;    }
     const SquareMatrix<T>&   GetU()    const { ensureDecomposed(); return *U_;    }
     const DynamicArray<int>& GetP()    const { ensureDecomposed(); return *perm_; }
-    int                      GetSize() const { return A_->GetSize();               }
+    int                      GetSize() const { return A_->GetSize();              }
 };
 
 
@@ -364,5 +364,5 @@ public:
     // доступ к кэшированным множителям
     const SquareMatrix<T>& GetQ()    const { ensureDecomposed(); return *Q_; }
     const SquareMatrix<T>& GetR()    const { ensureDecomposed(); return *R_; }
-    int                    GetSize() const { return A_->GetSize();             }
+    int                    GetSize() const { return A_->GetSize();           }
 };
