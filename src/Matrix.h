@@ -59,7 +59,7 @@ template <class T>
 class ArraySquareMatrix : public SquareMatrix<T> {
 protected:
     int              size_;
-    DynamicArray<T>* data_;   // (i, j)  ->  i * size_ + j
+    DynamicArray<T>  data_;   // (i, j)  ->  i * size_ + j
 
     void checkRC(int r, int c) const {
         if (r < 0 || r >= size_) throw RowIndexOutOfRange(r, size_);
@@ -70,33 +70,24 @@ public:
     // конструкторы
     explicit ArraySquareMatrix(int n)
     : size_(n >= 0 ? n : throw InvalidMatrixSize(n)),
-      data_(new DynamicArray<T>(n * n))
+      data_(n * n)
     {}
 
-    ArraySquareMatrix(const ArraySquareMatrix<T>& other)
-        : size_(other.size_), data_(new DynamicArray<T>(*other.data_)) {}
-
-    ArraySquareMatrix& operator=(const ArraySquareMatrix<T>& other) {
-        if (this == &other) return *this;
-        delete data_;
-        size_ = other.size_;
-        data_ = new DynamicArray<T>(*other.data_);
-        return *this;
-    }
-
-    ~ArraySquareMatrix() override { delete data_; }
+    ArraySquareMatrix(const ArraySquareMatrix<T>& other) = default;
+    ArraySquareMatrix& operator=(const ArraySquareMatrix<T>& other) = default;
+    ~ArraySquareMatrix() override = default;
 
     // доступ
     int GetSize() const override { return size_; }
 
     const T& Get(int r, int c) const override {
         checkRC(r, c);
-        return data_->Get(r * size_ + c);
+        return data_.Get(r * size_ + c);
     }
 
     void Set(int r, int c, const T& v) override {
         checkRC(r, c);
-        data_->Set(r * size_ + c, v);
+        data_.Set(r * size_ + c, v);
     }
 
     // IEnumerable: обход в порядке row-major
@@ -115,7 +106,7 @@ public:
             if (pos_ < 0 || pos_ >= total)
                 throw IndexOutOfRange(
                     "SquareMatrix::Enumerator: no current element");
-            return mat_->data_->Get(pos_);
+            return mat_->data_.Get(pos_);
         }
 
         void Reset() override { pos_ = -1; }
